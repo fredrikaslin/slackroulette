@@ -48,15 +48,16 @@ func main() {
 		min := 1
 		max := 2
 
-		switch rand.Intn(max-min+1) + min {
+		random := rand.Intn(max-min+1) + min
+
+		switch random {
 		case 1:
 			runChuckNorrisJoke(w)
 		case 2:
 			printEmoji(w)
 		default:
-			// freebsd, openbsd,
-			// plan9, windows...
-			runChuckNorrisJoke(w)
+			fmt.Fprintf(w, strconv.Itoa(random)
+		)
 		}
 
 	})
