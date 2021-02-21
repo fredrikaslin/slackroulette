@@ -33,11 +33,7 @@ func main() {
 	})
 
 	http.HandleFunc("/slack", func(w http.ResponseWriter, r *http.Request) {
-	}
-
-
-
-
+	})
 
 	http.HandleFunc("/cached", func(w http.ResponseWriter, r *http.Request) {
 		maxAgeParams, ok := r.URL.Query()["max-age"]
