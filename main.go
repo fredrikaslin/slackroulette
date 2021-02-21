@@ -33,7 +33,7 @@ func main() {
 	})
 
 	http.HandleFunc("/slack", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf("hej!")
+		fmt.Fprintf(w, "hej slack", r.URL.Path)
 
 	})
 
