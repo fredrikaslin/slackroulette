@@ -33,6 +33,8 @@ func main() {
 	})
 
 	http.HandleFunc("/slack", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf("hej!")
+
 	})
 
 	http.HandleFunc("/cached", func(w http.ResponseWriter, r *http.Request) {
