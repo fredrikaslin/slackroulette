@@ -3,10 +3,12 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"math/rand"
 	"net/http"
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/gofrs/uuid"
 )
@@ -29,6 +31,11 @@ func runChuckNorrisJoke(w http.ResponseWriter) {
 	fmt.Fprintf(w, joke.Value)
 }
 
+func printEmoji(w http.ResponseWriter) {
+	fmt.Fprintf(w, ":sunglasses:")
+
+}
+
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello! you've requested %s\n", r.URL.Path)
@@ -36,6 +43,21 @@ func main() {
 
 	http.HandleFunc("/slack", func(w http.ResponseWriter, r *http.Request) {
 		runChuckNorrisJoke(w)
+
+		rand.Seed(time.Now().UnixNano())
+		min := 1
+		max := 2
+
+		switch rand.Intn(max-min+1) + min {
+		case 1:
+			runChuckNorrisJoke(w)
+		case 2:
+			printEmoji(w)
+		default:
+			// freebsd, openbsd,
+			// plan9, windows...
+			runChuckNorrisJoke(w)
+		}
 
 	})
 
