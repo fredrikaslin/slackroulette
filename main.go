@@ -32,6 +32,13 @@ func main() {
 		fmt.Fprintf(w, "Hello! you've requested %s\n", r.URL.Path)
 	})
 
+	http.HandleFunc("/slack", func(w http.ResponseWriter, r *http.Request) {
+	}
+
+
+
+
+
 	http.HandleFunc("/cached", func(w http.ResponseWriter, r *http.Request) {
 		maxAgeParams, ok := r.URL.Query()["max-age"]
 		if ok && len(maxAgeParams) > 0 {
