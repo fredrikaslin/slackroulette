@@ -33,7 +33,9 @@ func main() {
 	})
 
 	http.HandleFunc("/slack", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "hej slack", r.URL.Path)
+		var joke = http.Get("https://api.chucknorris.io/jokes/random")
+
+		fmt.Fprintf(w, joke)
 
 	})
 
