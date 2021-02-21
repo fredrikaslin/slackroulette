@@ -1,11 +1,11 @@
-package main
+package roulette
 
 import (
 	"fmt"
 	"net/http"
 )
 
-func main() {
+func run() {
 
 	fmt.Println("staring roulette....")
 
