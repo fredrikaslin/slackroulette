@@ -56,8 +56,7 @@ func main() {
 		case 2:
 			printEmoji(w)
 		default:
-			fmt.Fprintf(w, strconv.Itoa(random)
-		)
+			fmt.Fprintf(w, strconv.Itoa(random))
 		}
 
 	})
