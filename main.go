@@ -49,7 +49,7 @@ func shoutInGeneral(w http.ResponseWriter) {
 	mess.Text = "HAHAHAHHAHAHAHAHAHAHAHAHA"
 	mess.Channel = "C01P32Y4648"
 
-	var jsonStr = []byte(`{"Text":"HA HA HA", "Channel: "C01P32Y4648"}`)
+	var jsonStr = []byte(`{"text":"HA HA HA", "channel: "C01P32Y4648"}`)
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
 	req.Header.Set("Authorization", "Bearer ${token}")
 	req.Header.Set("Content-Type", "application/json")
