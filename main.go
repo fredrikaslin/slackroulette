@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"math/rand"
@@ -16,6 +17,11 @@ import (
 type Joke struct {
 	Value    string
 	Icon_url string
+}
+
+type SlackMessage struct {
+	Text    string
+	Channel string
 }
 
 func runChuckNorrisJoke(w http.ResponseWriter) {
@@ -36,17 +42,41 @@ func printEmoji(w http.ResponseWriter) {
 
 }
 
+func shoutInGeneral(w http.ResponseWriter) {
+	url := "https://slack.com/api/chat.postMessage"
+
+	mess := new(SlackMessage)
+	mess.Text = "HAHAHAHHAHAHAHAHAHAHAHAHA"
+	mess.Channel = "C01P32Y4648"
+
+	var jsonStr = []byte(`{"Text":"HA HA HA", "Channel: "C01P32Y4648"}`)
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonStr))
+	req.Header.Set("Authorization", "Bearer ${token}")
+	req.Header.Set("Content-Type", "application/json")
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+
+	// fmt.Println("response Status:", resp.Status)
+	// fmt.Println("response Headers:", resp.Header)
+	// body, _ := ioutil.ReadAll(resp.Body)
+	// fmt.Println("response Body:", string(body))
+}
+
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Hello! you've requested %s\n", r.URL.Path)
 	})
 
 	http.HandleFunc("/slack", func(w http.ResponseWriter, r *http.Request) {
-		runChuckNorrisJoke(w)
 
 		rand.Seed(time.Now().UnixNano())
 		min := 1
-		max := 2
+		max := 3
 
 		random := rand.Intn(max-min+1) + min
 
@@ -55,6 +85,8 @@ func main() {
 			runChuckNorrisJoke(w)
 		case 2:
 			printEmoji(w)
+		case 3:
+			shoutInGeneral(w)
 		default:
 			fmt.Fprintf(w, strconv.Itoa(random))
 		}
